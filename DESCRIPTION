@@ -1,0 +1,19 @@
+Package: grading
+Type: Package
+Title: Grading Utilities
+Version: 0.1-0
+Date: 2014-1-14
+Suggests:
+    testthat,
+    knitr,
+    tools
+VignetteBuilder: knitr
+Author: Randall Pruim <rpruim@calvin.edu>
+Maintainer: Randall Pruim <rpruim@calvin.edu>
+Description: Utilities for grading.
+License: GPL (>=2)
+LazyLoad: yes
+LazyData: yes
+Collate:
+    'ExcelTime.R'
+    'gpa.R'
