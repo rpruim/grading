@@ -2,16 +2,16 @@
 \alias{letter2gp}
 \title{Convert from Letter to Grade Point scale}
 \usage{
-  letter2gp(x)
+letter2gp(x)
 }
 \arguments{
   \item{x}{a character vector of grades}
 }
 \value{
-  a numeric vector of grade point values
+a numeric vector of grade point values
 }
 \description{
-  Convert from letter to grade point scale
+Convert from letter to grade point scale
 }
 \examples{
 letter2gp( c("A", "B-", "HB+", "AU", "IB") )

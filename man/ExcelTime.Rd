@@ -3,9 +3,9 @@
 \alias{excelTime2num}
 \title{Excel Time conversions}
 \usage{
-  excelTime2char(x, debug = FALSE)
+excelTime2char(x, debug = FALSE)
 
-  excelTime2num(x, debug = FALSE)
+excelTime2num(x, debug = FALSE)
 }
 \arguments{
   \item{x}{a numeric vector}
@@ -13,9 +13,9 @@
   \item{debug}{a logical}
 }
 \value{
-  a numeric or character vector
+a numeric or character vector
 }
 \description{
-  Tools to convert to/from Excel time data.
+Tools to convert to/from Excel time data.
 }
 

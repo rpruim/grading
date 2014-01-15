@@ -10,7 +10,9 @@
 #' letter2gp( c("A", "B-", "HB+", "AU", "IB") )
 #' 
 letter2gp <- function(x) {
-  sapply(x, function(g) 
+  if (length(x) < 1) return (numeric(0))
+  sapply(x, function(g) {
+    if (is.na(g)) return(NA)
     switch(g, 
            "A" = 4,
            "HA" = 4,
@@ -48,5 +50,6 @@ letter2gp <- function(x) {
            "IN" = 0.0,
            NA
     )
+  }
   )
 }

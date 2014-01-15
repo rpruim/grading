@@ -14,6 +14,3 @@ Description: Utilities for grading.
 License: GPL (>=2)
 LazyLoad: yes
 LazyData: yes
-Collate:
-    'ExcelTime.R'
-    'gpa.R'
