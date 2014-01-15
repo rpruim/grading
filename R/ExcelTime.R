@@ -6,6 +6,7 @@
 #' @param x a numeric vector
 #' @param debug a logical
 #' @return a numeric or character vector
+#' @export
 
 excelTime2char <- function(x, debug=FALSE) {
   x <- as.numeric(as.character(x))
@@ -18,6 +19,7 @@ excelTime2char <- function(x, debug=FALSE) {
 }
 
 #' @rdname ExcelTime
+#' @export
 excelTime2num<- function(x, debug=FALSE) {
   x <- as.numeric(as.character(x))
   minutes <- round( x * 24 * 60 )

@@ -5,6 +5,10 @@
 #' 
 #' @param x a character vector of grades
 #' @return a numeric vector of grade point values
+#' @export
+#' @examples
+#' letter2gp( c("A", "B-", "HB+", "AU", "IB") )
+#' 
 letter2gp <- function(x) {
   sapply(x, function(g) 
     switch(g, 

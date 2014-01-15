@@ -13,4 +13,7 @@
 \description{
   Convert from letter to grade point scale
 }
+\examples{
+letter2gp( c("A", "B-", "HB+", "AU", "IB") )
+}
 
