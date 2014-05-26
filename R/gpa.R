@@ -69,4 +69,5 @@ gp2letter <- function(x) {
 	  levels = tail(letterGrades, -1)
 	)
 	res[nas] <- NA
+  return(res)
 }
