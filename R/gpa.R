@@ -1,9 +1,10 @@
 
-#' Convert from Letter to Grade Point scale
+#' Convert between Letter and Grade Point scales
 #' 
-#' Convert from letter to grade point scale
+#' Convert between Letter and Grade Point scales
 #' 
-#' @param x a character vector of grades
+#' @rdname letterGrades
+#' @param x a character vector of letter grades or a numeric vector of grade points
 #' @return a numeric vector of grade point values
 #' @export
 #' @examples
@@ -52,4 +53,20 @@ letter2gp <- function(x) {
     )
   }
   )
+}
+
+#' @rdname letterGrades
+#' @export
+
+gp2letter <- function(x) {
+	standards <- as.vector( outer( c(-.3,0,.3), 0:4, "+") )
+	letterGrades  <- as.vector( outer( c("-"," ","+"), c("F","D","C","B","A"), 
+									  function(x,y) paste0(y,x) ) )
+	nas <- is.na(x)
+	x[nas] <- standards[1]
+	res <- factor(
+	  letterGrades [ sapply(x, function(x) which.min(abs(x-standards)) ) ],
+	  levels = tail(letterGrades, -1)
+	)
+	res[nas] <- NA
 }

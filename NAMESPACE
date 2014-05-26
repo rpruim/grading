@@ -3,4 +3,5 @@
 export(dropScores)
 export(excelTime2char)
 export(excelTime2num)
+export(gp2letter)
 export(letter2gp)
