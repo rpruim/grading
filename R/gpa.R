@@ -9,6 +9,7 @@
 #' @export
 #' @examples
 #' letter2gp( c("A", "B-", "HB+", "AU", "IB") )
+#' gp2letter( seq(3, 4, by=.1) )
 #' 
 letter2gp <- function(x) {
   if (length(x) < 1) return (numeric(0))

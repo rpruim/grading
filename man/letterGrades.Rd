@@ -19,5 +19,6 @@ Convert between Letter and Grade Point scales
 }
 \examples{
 letter2gp( c("A", "B-", "HB+", "AU", "IB") )
+gp2letter( seq(3, 4, by=.1) )
 }
 
