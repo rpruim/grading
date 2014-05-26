@@ -13,7 +13,7 @@ dropScores(score, possible, drop = 0, value = c("proportion", "percent",
 
 \item{drop}{the number of items which may be dropped}
 
-\item{the}{type of return value desired.}
+\item{value}{the type of return value desired.}
 }
 \value{
 either the post-drop average (percent or proportion) or a vector of indices
