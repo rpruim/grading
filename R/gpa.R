@@ -13,6 +13,7 @@
 #' 
 letter2gp <- function(x) {
   if (length(x) < 1) return (numeric(0))
+  x <- trimws(as.character(x))
   sapply(x, function(g) {
     if (is.na(g)) return(NA)
     switch(g, 
