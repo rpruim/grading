@@ -35,7 +35,7 @@ dropScores <- function( score, possible, drop=0, value=c("proportion","percent",
 		fvals <- sort(fvals)
 		base::sum( tail(fvals, keep) )  # sum of biggest
 	}
-	res <- uniroot( Flocal, c(0,1) )$root	
+	res <- uniroot( Flocal, c(-1, 2) )$root	
 	drops <- head( order(score - res * possible ), drop ) 
 	prop <- base::sum( score[-drops]) / sum(possible[-drops])
 	return( switch( value,

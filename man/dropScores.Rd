@@ -39,4 +39,3 @@ dropScores( score, possible, drop=1, value="drops")
 sum( score[c(1,3)] ) / sum( possible[c(1,3)] )
 sum( score[c(1,2)] ) / sum( possible[c(1,2)] )
 }
-
