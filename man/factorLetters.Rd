@@ -15,4 +15,3 @@ Turn letter grades into ordered factor
 \examples{
 factorLetters( c("A", "B+", "A-", "B ") )
 }
-

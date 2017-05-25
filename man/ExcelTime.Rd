@@ -20,4 +20,3 @@ a numeric or character vector
 \description{
 Tools to convert to/from Excel time data.
 }
-
