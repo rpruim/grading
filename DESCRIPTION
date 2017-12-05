@@ -1,8 +1,8 @@
 Package: grading
 Type: Package
 Title: Grading Utilities
-Version: 0.1.2
-Date: 2016-05-23
+Version: 0.1.2.9000
+Date: 2017-12-04
 Suggests:
     testthat,
     knitr,
@@ -14,4 +14,4 @@ Description: Utilities for grading.
 License: GPL (>=2)
 LazyLoad: yes
 LazyData: yes
-RoxygenNote: 6.0.1
+RoxygenNote: 6.0.1.9000
