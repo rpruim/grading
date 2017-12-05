@@ -4,8 +4,10 @@
 #' Convert between Letter and Grade Point scales
 #' 
 #' @rdname letterGrades
-#' @param x a character vector of letter grades or a numeric vector of grade points
-#' @return a numeric vector of grade point values
+#' @param x A character vector of letter grades or a numeric vector of grade points.
+#' @param block A logical indicating whether "block" letters (no + or -) 
+#'   should be used.
+#' @return A numeric vector of grade point values.
 #' @export
 #' @examples
 #' letter2gp( c("A", "B-", "HB+", "AU", "IB") )

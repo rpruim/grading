@@ -10,10 +10,13 @@ letter2gp(x)
 gp2letter(x, block = FALSE)
 }
 \arguments{
-\item{x}{a character vector of letter grades or a numeric vector of grade points}
+\item{x}{A character vector of letter grades or a numeric vector of grade points.}
+
+\item{block}{A logical indicating whether "block" letters (no + or -) 
+should be used.}
 }
 \value{
-a numeric vector of grade point values
+A numeric vector of grade point values.
 }
 \description{
 Convert between Letter and Grade Point scales
