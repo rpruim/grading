@@ -1,8 +1,8 @@
 Package: grading
 Type: Package
 Title: Grading Utilities
-Version: 0.1.2.9000
-Date: 2017-12-04
+Version: 0.1.2.9001
+Date: 2017-12-05
 Suggests:
     testthat,
     knitr,
