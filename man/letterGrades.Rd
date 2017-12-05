@@ -7,7 +7,7 @@
 \usage{
 letter2gp(x)
 
-gp2letter(x)
+gp2letter(x, block = FALSE)
 }
 \arguments{
 \item{x}{a character vector of letter grades or a numeric vector of grade points}

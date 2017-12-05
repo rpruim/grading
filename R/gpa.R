@@ -60,16 +60,23 @@ letter2gp <- function(x) {
 #' @rdname letterGrades
 #' @export
 
-gp2letter <- function(x) {
-	standards <- as.vector( outer( c(-.3,0,.3), 0:4, "+") )
-	letterGrades  <- as.vector( outer( c("-"," ","+"), c("F","D","C","B","A"), 
-									  function(x,y) paste0(y,x) ) )
-	nas <- is.na(x)
-	x[nas] <- standards[1]
-	res <- factor(
-	  letterGrades [ sapply(x, function(x) which.min(abs(x-standards)) ) ],
-	  levels = tail(letterGrades, -1)
-	)
-	res[nas] <- NA
+gp2letter <- function(x, block = FALSE) {
+  standards <- as.vector( outer( c(-.3, 0, .3), 0:4, "+") )
+  letterGrades  <- 
+    if (block) {
+      as.vector( outer( c("", "", ""), c("F", "D", "C", "B", "A"), 
+                        function(x, y) paste0(y, x) ) )
+    } else {
+      as.vector( outer( c("-", " ", "+"), c("F", "D", "C", "B", "A"), 
+                        function(x, y) paste0(y, x) ) )
+    }
+  
+  nas <- is.na(x)
+  x[nas] <- standards[1]
+  res <- factor(
+    letterGrades [ sapply(x, function(x) which.min(abs(x-standards)) ) ],
+    levels = unique(tail(letterGrades, -1))
+  )
+  res[nas] <- NA
   return(res)
 }
