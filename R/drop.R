@@ -54,3 +54,55 @@ dropScores <- function( score, possible, drop=0, value=c("proportion","percent",
 				   ) )
 }
 
+#' Collect a series of scores (with drops)
+#' 
+#' Aggregate scores from matching columns, possibly after dropping some of the lowest scores.
+#' 
+#' @param data A data frame containing the gradebook.
+#' @param pattern A regular expression matched against the names in `data` for selecting
+#'   the columns to be aggregated.
+#' @param as A string naming the new variable to be computed.
+#' @param format One of `"percent"`, "`proportion"`.
+#' @param ignore.case A logical indicating whether case should be ignored when matching
+#'   `pattern`.
+#' @return A data frame
+#' @export  
+process_scores <- 
+  function(data, pattern, 
+           as = "hw", drop = 0, 
+           format = c("percent", "proportion"), ignore.case = TRUE) {
+   
+    format = match.arg(format)
+    
+    data$.id <- 1:nrow(data)
+    
+    which = grep(pattern, names(data), ignore.case = ignore.case)
+    
+    cols <- union(which, grep(".id", names(data)))
+    
+    which = grep(pattern, names(data[, cols]), ignore.case = ignore.case)
+    
+    data2 <- 
+      data[, cols] %>% 
+      tidyr::gather(key = ".item", value = ".score", which) %>% 
+      # select(.id, .item, .score) %>%
+      arrange(.item)
+    
+    data2$.score[is.na(data2$.score)] <- 0
+    
+    MaxHW <- data2 %>%
+      group_by(.item) %>%
+      summarise(max = max(.score, na.rm = TRUE))
+    
+    res <-
+      data2 %>%
+      group_by(.id) %>%
+      arrange(.item) %>%
+      summarise(
+        # ..hw..sum = sum(.score, na.rm = TRUE),
+        ..hw.. = grading::dropScores(.score, MaxHW$max, drop = drop, value = "percent")) %>%
+      inner_join(data, by = ".id") 
+    
+    names(res) <- gsub("..hw..", as, names(res), fixed = TRUE)
+    res
+  }

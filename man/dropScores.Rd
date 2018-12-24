@@ -4,8 +4,8 @@
 \alias{dropScores}
 \title{Compute aggregate score after dropping low components}
 \usage{
-dropScores(score, possible, drop = 0, value = c("proportion", "percent",
-  "drops"))
+dropScores(score, possible, drop = 0, value = c("proportion",
+  "percent", "drops"))
 }
 \arguments{
 \item{score}{a vector or matrix of item scores}

@@ -14,4 +14,4 @@ Description: Utilities for grading.
 License: GPL (>=2)
 LazyLoad: yes
 LazyData: yes
-RoxygenNote: 6.0.1.9000
+RoxygenNote: 6.1.1
