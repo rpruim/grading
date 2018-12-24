@@ -15,6 +15,8 @@ the columns to be aggregated.}
 
 \item{as}{A string naming the new variable to be computed.}
 
+\item{drop}{number of (lowest) items to drop.}
+
 \item{format}{One of `"percent"`, "`proportion"`.}
 
 \item{ignore.case}{A logical indicating whether case should be ignored when matching

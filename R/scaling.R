@@ -7,6 +7,7 @@
 #' @param breaks vector of break points between benchmarks
 #' @param values vector of values to convert break points to.  Interpolation is
 #'   used for other values.
+#' @importFrom stats approxfun
 #' 
 #' @details  
 #' Both `breaks` and `values` are sorted into decreasing order 

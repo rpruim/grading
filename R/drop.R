@@ -1,6 +1,9 @@
-
+utils::globalVariables(c(".item", ".score", ".id"))
+                      
 #' @importFrom stats uniroot
 #' @importFrom utils head tail
+#' @importFrom dplyr %>% arrange group_by summarise inner_join
+#' 
  
 NA
 
@@ -61,6 +64,7 @@ dropScores <- function( score, possible, drop=0, value=c("proportion","percent",
 #' @param data A data frame containing the gradebook.
 #' @param pattern A regular expression matched against the names in `data` for selecting
 #'   the columns to be aggregated.
+#' @param drop number of (lowest) items to drop.
 #' @param as A string naming the new variable to be computed.
 #' @param format One of `"percent"`, "`proportion"`.
 #' @param ignore.case A logical indicating whether case should be ignored when matching
