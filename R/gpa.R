@@ -76,7 +76,8 @@ gp2letter <- function(x, block = FALSE) {
   nas <- is.na(x)
   x[nas] <- standards[1]
   res <- factor(
-    letterGrades [ sapply(x, function(x) which.min(abs(x-standards)) ) ],
+    letterGrades [ 
+      sapply(x, function(x) length(standards) + 1 - which.min(abs(x-rev(standards))))],
     levels = unique(tail(letterGrades, -1))
   )
   res[nas] <- NA
