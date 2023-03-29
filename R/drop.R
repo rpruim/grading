@@ -44,12 +44,17 @@ dropScores <- function( score, possible, drop=0, value=c("proportion","percent",
 		fvals <- sort(fvals)
 		base::sum( tail(fvals, keep) )  # sum of biggest
 	}
+
+	if (drop > 0) {
 	eps <- 1e-4
 	a <- min(score/possible) - eps
 	b <- max(score/possible) + eps
 	res <- uniroot( Flocal, c(a, b) )$root
 	drops <- head( order(score - res * possible ), drop )
-	prop <- base::sum( score[-drops]) / sum(possible[-drops])
+	score <- score[-drops]
+	possible <- possible[-drops]
+	}
+	prop <- base::sum(score) / sum(possible)
 	return( switch( value,
 				   "proportion" = prop,
 				   "percent" = 100 * prop,
