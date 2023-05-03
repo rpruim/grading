@@ -64,6 +64,7 @@ letter2gp <- function(x) {
 
 gp2letter <- function(x, block = FALSE) {
   standards <- as.vector( outer( c(-.3, 0, .3), 0:4, "+") )
+  standards <- c(-Inf, standards, Inf)
   letterGrades  <- 
     if (block) {
       as.vector( outer( c("", "", ""), c("F", "D", "C", "B", "A"), 
@@ -72,13 +73,14 @@ gp2letter <- function(x, block = FALSE) {
       as.vector( outer( c("-", " ", "+"), c("F", "D", "C", "B", "A"), 
                         function(x, y) paste0(y, x) ) )
     }
+  letterGrades <- c("F-", letterGrades, "A+")
   
   nas <- is.na(x)
   x[nas] <- standards[1]
   res <- factor(
     letterGrades [ 
       sapply(x, function(x) length(standards) + 1 - which.min(abs(x-rev(standards))))],
-    levels = unique(tail(letterGrades, -1))
+    levels = unique(letterGrades)
   )
   res[nas] <- NA
   return(res)
