@@ -2,7 +2,7 @@ utils::globalVariables(c(".item", ".score", ".id"))
                       
 #' @importFrom stats uniroot
 #' @importFrom utils head tail
-#' @importFrom dplyr %>% arrange group_by summarise inner_join
+#' @importFrom dplyr |> arrange group_by summarise inner_join
 #' 
  
 NA
@@ -37,6 +37,9 @@ dropScores <- function( score, possible, drop=0, value=c("proportion","percent",
 	value <- match.arg(value)
 	score <- unlist(score)
 	possible <- unlist(possible)
+	# remove items with 0 or negative possible score
+	score <- score[possible > 0]
+	possible <- possible[possible > 0]
 	keep <- length(score) - drop
 	score[ is.na(score) ] <- 0
 	Flocal <- function( q ) {
@@ -45,14 +48,14 @@ dropScores <- function( score, possible, drop=0, value=c("proportion","percent",
 		base::sum( tail(fvals, keep) )  # sum of biggest
 	}
 
-	if (drop > 0) {
-	eps <- 1e-4
-	a <- min(score/possible) - eps
-	b <- max(score/possible) + eps
-	res <- uniroot( Flocal, c(a, b) )$root
-	drops <- head( order(score - res * possible ), drop )
-	score <- score[-drops]
-	possible <- possible[-drops]
+	if (drop > 0 & drop < length(score)) {
+	  eps <- 1e-4
+	  a <- min(score/possible) - eps
+	  b <- max(score/possible) + eps
+	  res <- uniroot( Flocal, c(a, b) )$root
+	  drops <- head( order(score - res * possible ), drop )
+	  score <- score[-drops]
+	  possible <- possible[-drops]
 	}
 	prop <- base::sum(score) / sum(possible)
 	return( switch( value,
@@ -81,35 +84,40 @@ process_scores <-
            as = "hw", drop = 0, 
            format = c("percent", "proportion"), ignore.case = TRUE) {
    
-    format = match.arg(format)
+    format <- match.arg(format)
     
     data$.id <- 1:nrow(data)
     
-    which = grep(pattern, names(data), ignore.case = ignore.case)
+    matching_cols <- grep(pattern, names(data), ignore.case = ignore.case)
     
-    cols <- union(which, grep(".id", names(data)))
-    
-    which = grep(pattern, names(data[, cols]), ignore.case = ignore.case)
-    
+    cols <- union(matching_cols, grep(".id", names(data)))
+   
+    # re-index with fewer columns 
+    matching_cols <- grep(pattern, names(data[, cols]), ignore.case = ignore.case)
+   
+    if (length(matching_cols) > 0) { 
     data2 <- 
-      data[, cols] %>% 
-      tidyr::gather(key = ".item", value = ".score", which) %>% 
-      # select(.id, .item, .score) %>%
+      data[, cols] |> 
+      tidyr::pivot_longer(names_to = ".item", values_to = ".score", matching_cols) |> 
+      select(.id, .item, .score) |>
       arrange(.item)
+    } else {
+      data2 <- data[, cols] |> mutate(.item = "none", .score = 0)
+    }
     
     data2$.score[is.na(data2$.score)] <- 0
     
-    MaxHW <- data2 %>%
-      group_by(.item) %>%
+    MaxHW <- data2 |>
+      group_by(.item) |>
       summarise(max = max(.score, na.rm = TRUE))
     
     res <-
-      data2 %>%
-      group_by(.id) %>%
-      arrange(.item) %>%
+      data2 |>
+      group_by(.id) |>
+      arrange(.item) |>
       summarise(
         # ..hw..sum = sum(.score, na.rm = TRUE),
-        ..hw.. = grading::dropScores(.score, MaxHW$max, drop = drop, value = "percent")) %>%
+        ..hw.. = grading::dropScores(.score, MaxHW$max, drop = drop, value = "percent")) |>
       inner_join(data, by = ".id") 
     
     names(res) <- gsub("..hw..", as, names(res), fixed = TRUE)
